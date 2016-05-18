@@ -20,20 +20,24 @@
   </head>
   <body>
     <h1>Pings</h1>
+    <p id='note'></p>
     <ul id='messages' style="color: red"></ul>
     <ul id='pings'></ul>
     <script>
       var host = location.origin.replace(/^http/, 'ws')
-      document.write("<h2>"+host+"</h2>");
       // todo: openshift requires 8000 port
       var parser = document.createElement('a');
       parser.href = host;
 
       var wsHost = host;
+      var openshiftNote = '';
       if (parser.port == 80 || parser.port == ''){
 		wsHost = parser.protocol+"//"+parser.hostname+":8000";
+		openshiftNote = " (using OpenShift port) ";
       }
-      document.write("<h2>"+wsHost+"</h2>");
+      document.getElementById('note').appendChild(
+	document.createTextNode("Using "+wsHost+" for WebSocket connection"+openshiftNote)
+      );
 
       var ws = new WebSocket(wsHost);
       ws.onmessage = function (event) {
