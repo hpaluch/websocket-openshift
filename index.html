@@ -20,6 +20,7 @@
   </head>
   <body>
     <h1>Pings</h1>
+    <ul id='messages' style="color: red"></ul>
     <ul id='pings'></ul>
     <script>
       var host = location.origin.replace(/^http/, 'ws')
@@ -28,12 +29,28 @@
       var parser = document.createElement('a');
       parser.href = host;
 
-      var ws = new WebSocket(host);
+      var wsHost = host;
+      if (parser.port == 80){
+		wsHost = parser.protocol+"://"+parser.hostname+":8000";
+      }
+      document.write("<h2>"+wsHost+"</h2>");
+
+      var ws = new WebSocket(wsHost);
       ws.onmessage = function (event) {
         var li = document.createElement('li');
         li.innerHTML = JSON.parse(event.data);
         document.querySelector('#pings').appendChild(li);
       };
+	ws.onerror = function (event) {
+		var li = document.createElement('li');
+		li.innerHTML = "OnError: event = "+JSON.stringify(event, null, 4);
+		document.querySelector('#messages').appendChild(li);
+       };
+	ws.onclose = function (event) {
+		var li = document.createElement('li');
+		li.innerHTML = "OnClose: event = "+JSON.stringify(event, null, 4);
+		document.querySelector('#messages').appendChild(li);
+	}
     </script>
   </body>
 </html>
