@@ -10,6 +10,30 @@ Follow instructions
 on https://developers.openshift.com/getting-started/debian-ubuntu.html
 to install OpenShift Client Tools (rhc command)
 
+Or use these commands (Ubuntu 14.04.3 LTS, AWS: `us-east-1 32-bit ebs ami-6f8b2604 t1.micro` - as of May 2016 the cost was about $0.0035/hr in us-east-1d):
+
+```shell
+sudo apt-get update
+sudo apt-get install ruby-full build-essential git npm nodejs
+sudo gem install rhc
+```
+
+> NOTE: On same versions of Ubuntu there is missing link node -> nodejs.
+> In such case try:
+
+```shell
+sudo update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
+```
+
+For the 1st time run:
+```shell
+rhc setup
+# confirm hostname openshift.redhat.com <ENTER>
+# enter your OpenShift Login and password
+# confirm token creation
+# confirm upload of ssh key
+```
+
 Then create directory for openshift projects:
 
 ```shell
@@ -54,7 +78,7 @@ npm start
 ```shell
 git add .
 git commit -m "My modification"
-git push -u origin master
+git push origin master
 ```
 
 
