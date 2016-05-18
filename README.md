@@ -1,3 +1,7 @@
-The OpenShift `nodejs` cartridge documentation can be found at:
+WebSocket example for OpenShift
+===============================
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+This is WebSocket example ported from https://github.com/heroku-examples/node-ws-test to OpenShift.
+
+TODO: more documentation
+
